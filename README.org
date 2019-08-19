@@ -1,2 +1,2 @@
-# .hammerspoon
+* .hammerspoon
 Hammerspoon configurations
