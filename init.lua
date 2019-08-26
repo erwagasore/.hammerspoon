@@ -14,14 +14,21 @@ function ratio_resize_center(ratio)
    win:setFrame(f)
 end
 
-function small_center()
-   ratio_resize_center(0.48)
+function ratio_resize_center_0()
+   ratio_resize_center(0.56)
 end
 
+function ratio_resize_center_9()
+ratio_resize_center()
+end
 
-local hyper = {'ctrl'}
-hs.hotkey.bind(hyper, "3", small_center)
-hs.hotkey.bind(hyper, "6", ratio_resize_center)
+function ratio_resize_center_8()
+   ratio_resize_center(1)
+end
 
+local hyper = {'cmd', 'ctrl'}
+hs.hotkey.bind(hyper, "0", ratio_resize_center_0)
+hs.hotkey.bind(hyper, "9", ratio_resize_center_9)
+hs.hotkey.bind(hyper, "8", ratio_resize_center_8)
 
 spoon.ReloadConfiguration:start()
