@@ -14,8 +14,13 @@ function ratio_resize_center(ratio)
    win:setFrame(f)
 end
 
+function small_center()
+   ratio_resize_center(0.48)
+end
+
 
 local hyper = {'ctrl'}
+hs.hotkey.bind(hyper, "3", small_center)
 hs.hotkey.bind(hyper, "6", ratio_resize_center)
 
 
