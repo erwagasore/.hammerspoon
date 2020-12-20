@@ -1,6 +1,20 @@
-hs.loadSpoon("ReloadConfiguration")
+local meta = {"cmd", "option"}
+local hyper = {"cmd", "option", "shift"}
 
-function ratio_resize_center(ratio)
+meta_bind("right", hs.grid.pushWindowRight)
+meta_bind("left", hs.grid.pushWindowLeft)
+meta_bind("down", hs.grid.pushWindowDown)
+meta_bind("up", hs.grid.pushWindowUp)
+
+function hyper_bind(key, f)
+   hs.hotkey.bind(hyper, key, f)
+end
+
+function meta_bind(key, f)
+   hs.hotkey.bind(meta, key, f)
+end
+
+function ratio_resize_from_center(ratio)
    local win = hs.window.focusedWindow()
    local f = win:frame()
    local s = win:screen()
@@ -14,21 +28,73 @@ function ratio_resize_center(ratio)
    win:setFrame(f)
 end
 
-function ratio_resize_center_0()
-   ratio_resize_center(0.56)
-end
+-- hs.hotkey.bind(hyper, "0", ratio_resize_center_0)
+-- hs.hotkey.bind(hyper, "9", ratio_resize_center_9)
+-- hs.hotkey.bind(hyper, "8", ratio_resize_center_8)
 
-function ratio_resize_center_9()
-ratio_resize_center()
-end
+hyper_bind("right", function()
+    local win = hs.window.focusedWindow()
+    if win == nil then return end
+    local screen = win:screen()
+    local sg = hs.grid.getGrid(screen)
+    local g = hs.grid.get(win)
+    if g.x + g.w == sg.w then
+        g.x = g.x + 1
+        g.w = g.w - 1
+        hs.grid.set(win, g)
+    else
+        g.w = g.w + 1
+        hs.grid.set(win, g)
+    end
+end)
 
-function ratio_resize_center_8()
-   ratio_resize_center(1)
-end
+hyper_bind("left", function()
+    local win = hs.window.focusedWindow()
+    if win == nil then return end
+    local screen = win:screen()
+    local sg = hs.grid.getGrid(screen)
+    local g = hs.grid.get(win)
+    if g.x + g.w >= sg.w and g.x ~= 0 then
+        g.x = g.x - 1
+        g.w = g.w + 1
+        hs.grid.set(win, g)
+    else
+        g.w = g.w - 1
+        hs.grid.set(win, g)
+    end
+end)
 
-local hyper = {'cmd', 'ctrl'}
-hs.hotkey.bind(hyper, "0", ratio_resize_center_0)
-hs.hotkey.bind(hyper, "9", ratio_resize_center_9)
-hs.hotkey.bind(hyper, "8", ratio_resize_center_8)
+hyper_bind("down", function()
+    local win = hs.window.focusedWindow()
+    if win == nil then return end
+    local screen = win:screen()
+    local sg = hs.grid.getGrid(screen)
+    local g = hs.grid.get(win)
+    if g.y + g.h == sg.h then
+        g.y = g.y + 1
+        g.h = g.h - 1
+        hs.grid.set(win, g)
+    else
+        g.h = g.h + 1
+        hs.grid.set(win, g)
+    end
+end)
 
-spoon.ReloadConfiguration:start()
+hyper_bind("up", function()
+    local win = hs.window.focusedWindow()
+    if win == nil then return end
+    local screen = win:screen()
+    local sg = hs.grid.getGrid(screen)
+    local g = hs.grid.get(win)
+    if g.y + g.h >= sg.h and g.y ~= 0 then
+        g.y = g.y - 1
+        g.h = g.h + 1
+        hs.grid.set(win, g)
+    else
+        g.h = g.h - 1
+        hs.grid.set(win, g)
+    end
+end)
+
+hyper_bind("r", hs.reload)
+hs.alert.show("Hammerspoon loaded")
