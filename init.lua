@@ -1,3 +1,7 @@
+hs.grid.setGrid('24x16')
+hs.grid.setMargins('0x0')
+hs.window.animationDuration = 0
+
 local meta = {"cmd", "option"}
 local hyper = {"cmd", "option", "shift"}
 
