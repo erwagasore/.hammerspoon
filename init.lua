@@ -1,11 +1,6 @@
 local meta = {"cmd", "option"}
 local hyper = {"cmd", "option", "shift"}
 
-meta_bind("right", hs.grid.pushWindowRight)
-meta_bind("left", hs.grid.pushWindowLeft)
-meta_bind("down", hs.grid.pushWindowDown)
-meta_bind("up", hs.grid.pushWindowUp)
-
 function hyper_bind(key, f)
    hs.hotkey.bind(hyper, key, f)
 end
@@ -13,6 +8,11 @@ end
 function meta_bind(key, f)
    hs.hotkey.bind(meta, key, f)
 end
+
+meta_bind("right", hs.grid.pushWindowRight)
+meta_bind("left", hs.grid.pushWindowLeft)
+meta_bind("down", hs.grid.pushWindowDown)
+meta_bind("up", hs.grid.pushWindowUp)
 
 function ratio_resize_from_center(ratio)
    local win = hs.window.focusedWindow()
